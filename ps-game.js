@@ -14,6 +14,8 @@
 
   var energy = document.createElement('div');
   var steps = document.createElement('div');
+  var berries = document.createElement('div');
+
 // update status
   energy.innerHTML = "energy: " + userStatus.energy;
   status.appendChild(energy);
@@ -21,22 +23,65 @@
   steps.innerHTML = "steps: " + userStatus.steps;
   status.appendChild(steps);
 
+  berries.innerHTML = "berries: " + userStatus.berries;
+  status.appendChild(berries);
+
+//buttons
   // walk button
   var walkBtn = document.getElementById('walkTrail');
+
+  
   //disable walk button for 3 seconds
   walkBtn.addEventListener('click', function() {
     this.setAttribute("disabled", "true");
       setTimeout(function() {
           walkBtn.removeAttribute("disabled")
-      }, 3000)
+      }, 1000)
       
   });
   //  add steps
   walkBtn.addEventListener('click', function addSteps(){
     userStatus.steps += 1;
     console.log(userStatus.steps);
+
+    //every 10 steps
+        if (userStatus.steps % 3 === 0){  
+          // create button
+          var berryBtn = document.createElement('button');
+          //assign an id
+          berryBtn.id = "pick-berries"
+          //set the text
+          berryBtn.innerHTML = "pick berries"
+          //put it in the middle section
+          document.getElementById("middle").appendChild(berryBtn)
+          
+          //on click generate random num between 1-10 
+          berryBtn.addEventListener('click', function(){
+            var berriesCount = Math.floor(Math.random()*(10-1)+ 1);
+
+            //add that random number to total berries
+            userStatus.berries ? userStatus.berries += berriesCount : userStatus.berries = berriesCount;
+            updateDOM();
+          //display text on left about number of berries picked
+         // create new div
+            var berriesText = document.createElement('div');
+            // put text in div with number
+            berriesText.innerHTML = "you picked " + berriesCount + " berries";
+            // puts new div onto dom on the left side
+            document.getElementById("left").appendChild(berriesText);
+            document.getElementById("middle").removeChild(berryBtn);
+          
+
+            })
+        }
+    //update dom
     updateDOM();
   });
+        
+
+
+
+//left side
   // display text on left side about walking
     // creates a new div
     var walkingText = document.createElement('div');
@@ -44,6 +89,9 @@
     walkingText.innerHTML = "you continue down the trail";
     // puts the new div onto the dom in the left side
     document.getElementById("left").appendChild(walkingText);
+
+  
+
 
     //udate the dom on pageload
     updateDOM();
