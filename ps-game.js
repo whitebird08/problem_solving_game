@@ -15,6 +15,7 @@
   var energy = document.createElement('div');
   var steps = document.createElement('div');
   var berries = document.createElement('div');
+  var water = document.createElement('div');
 
 // update status
   energy.innerHTML = "energy: " + userStatus.energy;
@@ -25,6 +26,9 @@
 
   berries.innerHTML = "berries: " + userStatus.berries;
   status.appendChild(berries);
+
+  water.innerHTML = "water: " + userStatus.water;
+  status.appendChild(water);
 
 //buttons
   // walk button
@@ -45,57 +49,89 @@
     console.log(userStatus.steps);
 
     //every 10 steps
-        if (userStatus.steps % 3 === 0){  
-          // create button
-          var berryBtn = document.createElement('button');
-          //assign an id
-          berryBtn.id = "pick-berries"
-          //set the text
-          berryBtn.innerHTML = "pick berries"
-          //put it in the middle section
-          document.getElementById("middle").appendChild(berryBtn)
-          
-          //on click generate random num between 1-10 
-          berryBtn.addEventListener('click', function(){
-            var berriesCount = Math.floor(Math.random()*(10-1)+ 1);
+    if (userStatus.steps % 3 === 0){  
+      // create button
+      var berryBtn = document.createElement('button');
+      //assign an id
+      berryBtn.id = "pick-berries"
+      //set the text
+      berryBtn.innerHTML = "pick berries"
+      //put it in the middle section
+      document.getElementById("middle").appendChild(berryBtn)
+      
+      //on click generate random num between 1-10 
+      berryBtn.addEventListener('click', function(){
+        var berriesCount = Math.floor(Math.random()*(10-1)+ 1);
 
-            //add that random number to total berries
-            userStatus.berries ? userStatus.berries += berriesCount : userStatus.berries = berriesCount;
-            updateDOM();
-          //display text on left about number of berries picked
-         // create new div
-            var berriesText = document.createElement('div');
-            // put text in div with number
-            berriesText.innerHTML = "you picked " + berriesCount + " berries";
-            // puts new div onto dom on the left side
-            document.getElementById("left").appendChild(berriesText);
-            document.getElementById("middle").removeChild(berryBtn);
-          
+        //add that random number to total berries
+        userStatus.berries ? userStatus.berries += berriesCount : userStatus.berries = berriesCount;
+        updateDOM();
+      //display text on left about number of berries picked
+     // create new div
+        var berriesText = document.createElement('div');
+        // put text in div with number
+        berriesText.innerHTML = "you picked " + berriesCount + " berries";
+        // puts new div onto dom on the left side
+        document.getElementById("left").appendChild(berriesText);
+        document.getElementById("middle").removeChild(berryBtn);
+      });
+      updateDOM();
+    }
+    var waterText = document.createElement('div');
+  //every 20 steps 
+    if (userStatus.steps % 5 === 0){ 
+  //prompt user to look for water
+  // create button
+      var waterBtn = document.createElement('button');
+       //set the text
+      waterBtn.innerHTML = "look for water"
+      //put it in the middle section
+      document.getElementById("middle").appendChild(waterBtn);
+  //give user 50% chance of finding water
+      waterBtn.addEventListener('click', function(){
+        var findWater = Math.floor(Math.random()*(2-1)+ 1);
+  // if found increase supply by 1  //display total water supply 
+      //when the walk button is clicked...
+        if (findWater == 2){ userStatus.water += 1};
+        //create water text
 
-            })
-        }
+          // put text in div with number
+        waterText.innerHTML = "you found water";
+        // puts new div onto dom on the left side
+        document.getElementById("left").appendChild(waterText);
+        document.getElementById("middle").removeChild(waterBtn);
+      });
+    } else {
+         //display you could't find any water 
+         // put text in div with number
+      waterText.innerHTML = "you didn't find any water";
+      // puts new div onto dom on the left side
+      document.getElementById("left").appendChild(waterText);
+      document.getElementById("middle").removeChild(waterBtn);
+    }
+
+    //only display after first time
+       //????? if (userStatus.water >= 1)
+
     //update dom
     updateDOM();
   });
-        
-
-
-
+      
 //left side
   // display text on left side about walking
-    // creates a new div
-    var walkingText = document.createElement('div');
-    // puts the text inside of that div
-    walkingText.innerHTML = "you continue down the trail";
-    // puts the new div onto the dom in the left side
-    document.getElementById("left").appendChild(walkingText);
-
-  
+  // creates a new div
+  var walkingText = document.createElement('div');
+  // puts the text inside of that div
+  walkingText.innerHTML = "you continue down the trail";
+  // puts the new div onto the dom in the left side
+  document.getElementById("left").appendChild(walkingText);
 
 
-    //udate the dom on pageload
-    updateDOM();
-  })();
+
+
+  //udate the dom on pageload
+  updateDOM();
+})();
 
 
 
