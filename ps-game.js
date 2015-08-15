@@ -45,7 +45,10 @@
   }); //timer
   //  add steps
   walkBtn.addEventListener('click', function addSteps(){ //walkevent
-    userStatus.steps += 1;
+      //On every step,
+    userStatus.steps += 1; 
+    //decrease the user's energy by a random number between 1 and 10.
+    userStatus.energy -= (Math.floor(Math.random()*(10-1)+ 1))
     console.log(userStatus.steps);
     var walkingText = document.createElement('div');
   // puts the text inside of that div
