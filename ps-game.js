@@ -36,15 +36,15 @@
 
   
   //disable walk button for 3 seconds
-  walkBtn.addEventListener('click', function() {
+  walkBtn.addEventListener('click', function() { //timer
     this.setAttribute("disabled", "true");
       setTimeout(function() {
           walkBtn.removeAttribute("disabled")
       }, 500)
       
-  }); 
+  }); //timer
   //  add steps
-  walkBtn.addEventListener('click', function addSteps(){
+  walkBtn.addEventListener('click', function addSteps(){ //walkevent
     userStatus.steps += 1;
     console.log(userStatus.steps);
     var walkingText = document.createElement('div');
@@ -54,7 +54,7 @@
   document.getElementById("left").appendChild(walkingText);
 
     //every 10 steps
-    if (userStatus.steps % 3 === 0){  
+    if (userStatus.steps % 3 === 0){ //berryIf
       // create button
       var berryBtn = document.createElement('button');
       //assign an id
@@ -65,7 +65,7 @@
       document.getElementById("middle").appendChild(berryBtn)
       
       //on click generate random num between 1-10 
-      berryBtn.addEventListener('click', function(){
+      berryBtn.addEventListener('click', function(){ //berryListen
         var berriesCount = Math.floor(Math.random()*(10-1)+ 1);
 
         //add that random number to total berries
@@ -79,12 +79,11 @@
         // puts new div onto dom on the left side
         document.getElementById("left").appendChild(berriesText);
         document.getElementById("middle").removeChild(berryBtn);
-      });
-      // updateDOM();
-    }  
-    });
-      //every 20 steps
-    if (userStatus.steps % 3 === 0){  
+      });//berryListen
+      updateDOM();
+    } //berryIf
+    if (userStatus.steps % 4 === 0){ //waterIf 
+
       // create button
       var waterBtn = document.createElement('button');
       //assign an id
@@ -95,7 +94,7 @@
       document.getElementById("middle").appendChild(waterBtn)
       
       //on click generate random num between 1-10 
-      waterBtn.addEventListener('click', function(){
+      waterBtn.addEventListener('click', function(){ //waterListen
         var waterCount = Math.floor(Math.random()*(10-1)+ 1);
 
         //add that random number to total water
@@ -108,10 +107,10 @@
         waterText.innerHTML = "you found " + waterCount + " gallons";
         // puts new div onto dom on the left side
         document.getElementById("left").appendChild(waterText);
-        document.getElementById("middle").removeChild(waterBtn);
-        console.log(waterBtn)
-      })
+        document.getElementById("middle").removeChild(waterBtn);  
       updateDOM();
+      }) //waterListen
+    }; //waterIf
 
 //left side
   // display text on left side about walking
@@ -122,11 +121,9 @@
   // puts the new div onto the dom in the left side
   document.getElementById("left").appendChild(walkingText);
 
-
-
-
-  //udate the dom on pageload
-      }
+ 
+      }) //walkevent
+ //udate the dom on pageload
   updateDOM();
 
 })();
