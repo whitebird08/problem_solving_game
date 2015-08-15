@@ -1,16 +1,16 @@
-(function() {
-  var userStatus = {
+ (function() {
+  var userStatus = { //varuserstatus
     energy: 100,
     steps: 0
-  };
+  }; //varuserstatus
 // initialize status 
   var status = document.getElementById("status");
-  function updateDOM(){
+  function updateDOM(){ //status
     status.innerHTML = "";
-    for(key in userStatus){
+    for(key in userStatus){ //key
       status.innerHTML = status.innerHTML + "<div>" + key + ": " + userStatus[key] + "</div>"
-    }
-  }
+    } //key
+  } //status
 
   var energy = document.createElement('div');
   var steps = document.createElement('div');
@@ -33,8 +33,6 @@
 //buttons
   // walk button
   var walkBtn = document.getElementById('walkTrail');
-
-  
   //disable walk button for 3 seconds
   walkBtn.addEventListener('click', function() { //timer
     this.setAttribute("disabled", "true");
@@ -70,7 +68,6 @@
       //on click generate random num between 1-10 
       berryBtn.addEventListener('click', function(){ //berryListen
         var berriesCount = Math.floor(Math.random()*(10-1)+ 1);
-
         //add that random number to total berries
         userStatus.berries ? userStatus.berries += berriesCount : userStatus.berries = berriesCount;
         updateDOM();
@@ -83,6 +80,45 @@
         document.getElementById("left").appendChild(berriesText);
         document.getElementById("middle").removeChild(berryBtn);
       });//berryListen
+      
+      if (userStatus.berries >= 1){ //eatif
+    // give the option to "eat berries". 
+  // create button
+      var eatBtn = document.createElement('button');
+      //assign an id
+      eatBtn.id = "eat-berries"
+      //set the text
+      eatBtn.innerHTML = "eat berries"
+      //put it in the middle section
+      document.getElementById("middle").appendChild(eatBtn)
+       
+  //Every ten seconds,
+      eatBtn.addEventListener('click', function() { //eattimer
+        this.setAttribute("disabled", "true");
+          setTimeout(function() {
+              eatBtn.removeAttribute("disabled")
+          }, 2000)     
+      }); //eattimer
+
+      //One click of this button 
+  
+      eatBtn.addEventListener('click', function addEnergy(){ //eatevent
+        //and increases energy by 2.
+        userStatus.energy += 2
+        console.log(userStatus.energy)
+        //decreases the "berries" count by 1,
+        userStatus.berries -= 1;
+        console.log(userStatus.berries)
+        
+        var eatText = document.createElement('div');
+        // puts the text inside of that div
+        eatText.innerHTML = "mmm tasty berries and energy yay";
+        // puts the new div onto the dom in the left side
+        document.getElementById("left").appendChild(eatText);
+        document.getElementById("middle").removeChild(eatBtn)
+        updateDOM();
+      }) //eatevent
+    } //eatif
       updateDOM();
     } //berryIf
     if (userStatus.steps % 4 === 0){ //waterIf 
@@ -114,7 +150,12 @@
       updateDOM();
       }) //waterListen
     }; //waterIf
+  
+    
 
+  })//walkevent 
+
+    
 //left side
   // display text on left side about walking
   // creates a new div
@@ -124,12 +165,11 @@
   // puts the new div onto the dom in the left side
   document.getElementById("left").appendChild(walkingText);
 
- 
-      }) //walkevent
+
  //udate the dom on pageload
   updateDOM();
 
-})();
+ })();
 
 
 
