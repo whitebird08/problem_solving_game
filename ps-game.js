@@ -30,7 +30,7 @@
   water.innerHTML = "water: " + userStatus.water;
   status.appendChild(water);
 
-//buttons
+  //buttons
   // walk button
   var walkBtn = document.getElementById('walkTrail');
   //disable walk button for 3 seconds
@@ -43,12 +43,12 @@
   }); //timer
   //  add steps
   walkBtn.addEventListener('click', function addSteps(){ //walkevent
-      //On every step,
-    userStatus.steps += 1; 
-    //decrease the user's energy by a random number between 1 and 10.
-    userStatus.energy -= (Math.floor(Math.random()*(10-1)+ 1))
-    console.log(userStatus.steps);
-    var walkingText = document.createElement('div');
+    //On every step,
+  userStatus.steps += 1; 
+  //decrease the user's energy by a random number between 1 and 10.
+  userStatus.energy -= (Math.floor(Math.random()*(10-1)+ 1))
+  console.log(userStatus.steps);
+  var walkingText = document.createElement('div');
   // puts the text inside of that div
   walkingText.innerHTML = "you continue down the trail";
   // puts the new div onto the dom in the left side
@@ -96,9 +96,9 @@
         document.getElementById("middle").removeChild(berryBtn);
       });//berryListen
 
-      if (userStatus.berries >= 1){ //eatif
-    // give the option to "eat berries". 
-  // create button
+    if (userStatus.berries >= 1){ //eatif
+        // give the option to "eat berries". 
+      // create button
       var eatBtn = document.createElement('button');
       //assign an id
       eatBtn.id = "eat-berries"
@@ -107,7 +107,7 @@
       //put it in the middle section
       document.getElementById("middle").appendChild(eatBtn)
        
-  //Every ten seconds,
+      //Every ten seconds,
       eatBtn.addEventListener('click', function() { //eattimer
         this.setAttribute("disabled", "true");
           setTimeout(function() {
@@ -136,6 +136,7 @@
     } //eatif
       updateDOM();
     } //berryIf
+
     if (userStatus.steps % 4 === 0){ //waterIf 
 
       // create button
@@ -169,44 +170,44 @@
         // and increases energy by 10.
         // On the left side of the page, display "you drank water and gained energy"
         // when this button is clicked. 
-        if (userStatus.water >= 1){ //eatif
-            // give the option to "drink water". 
-          // create button
-              var drinkBtn = document.createElement('button');
-              //assign an id
-              drinkBtn.id = "drink-water"
-              //set the text
-              drinkBtn.innerHTML = "drink water"
-              //put it in the middle section
-              document.getElementById("middle").appendChild(drinkBtn)
-               
-          //Every ten seconds,
-              drinkBtn.addEventListener('click', function() { //drinktimer
-                this.setAttribute("disabled", "true");
-                  setTimeout(function() {
-                      drinkBtn.removeAttribute("disabled")
-                  }, 2000)     
-              }); //drinktimer
+      if (userStatus.water >= 1){ //drinkif
+          // give the option to "drink water". 
+        // create button
+        var drinkBtn = document.createElement('button');
+        //assign an id
+        drinkBtn.id = "drink-water"
+        //set the text
+        drinkBtn.innerHTML = "drink water"
+        //put it in the middle section
+        document.getElementById("middle").appendChild(drinkBtn)
+             
+        //Every ten seconds,
+        drinkBtn.addEventListener('click', function() { //drinktimer
+          this.setAttribute("disabled", "true");
+            setTimeout(function() {
+                drinkBtn.removeAttribute("disabled")
+            }, 2000)     
+        }); //drinktimer
 
-              //One click of this button 
-          
-              drinkBtn.addEventListener('click', function addEnergy(){ //drinkevent
-                //and increases energy by 2.
-                userStatus.energy += 4
-               
-                //decreases the "water" count by 1,
-                userStatus.water -= 1;
+        //One click of this button 
+    
+        drinkBtn.addEventListener('click', function addEnergy(){ //drinkevent
+        //and increases energy by 2.
+        userStatus.energy += 4
+       
+        //decreases the "water" count by 1,
+        userStatus.water -= 1;
+            
               
-                
-                var drinkText = document.createElement('div');
-                // puts the text inside of that div
-                drinkText.innerHTML = "you drank water and gained energy";
-                // puts the new div onto the dom in the left side
-                document.getElementById("left").appendChild(drinkText);
-                document.getElementById("middle").removeChild(drinkBtn)
-                updateDOM();
-              }) //drinkevent
-            } //drinkif
+        var drinkText = document.createElement('div');
+        // puts the text inside of that div
+        drinkText.innerHTML = "you drank water and gained energy";
+        // puts the new div onto the dom in the left side
+        document.getElementById("left").appendChild(drinkText);
+        document.getElementById("middle").removeChild(drinkBtn)
+        updateDOM();
+        }) //drinkevent
+      } //drinkif
 
 
       updateDOM();
