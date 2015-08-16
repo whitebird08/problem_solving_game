@@ -54,6 +54,21 @@
   // puts the new div onto the dom in the left side
   document.getElementById("left").appendChild(walkingText);
 
+    
+    if (userStatus.energy < 1){
+    var gameOverText = document.createElement('div');
+    // puts the text inside of that div
+    gameOverText.innerHTML = "GAME OVER";
+    // puts the new div onto the dom in the middle
+    document.getElementById("middle").appendChild(gameOverText);
+    userStatus.energy = 0
+    userStatus.berries = 0
+    userStatus.water = 0
+    userStatus.steps = 0
+
+    updateDOM();
+    }  
+  
     //every 10 steps
     if (userStatus.steps % 3 === 0){ //berryIf
       // create button
@@ -80,7 +95,7 @@
         document.getElementById("left").appendChild(berriesText);
         document.getElementById("middle").removeChild(berryBtn);
       });//berryListen
-      
+
       if (userStatus.berries >= 1){ //eatif
     // give the option to "eat berries". 
   // create button
@@ -146,14 +161,62 @@
         waterText.innerHTML = "you found " + waterCount + " gallons";
         // puts new div onto dom on the left side
         document.getElementById("left").appendChild(waterText);
-        document.getElementById("middle").removeChild(waterBtn);  
+        document.getElementById("middle").removeChild(waterBtn); 
+
+        // Every five seconds, give the option to "drink water". 
+        // One click of this button 
+        // decreases the "water" count by 1. 
+        // and increases energy by 10.
+        // On the left side of the page, display "you drank water and gained energy"
+        // when this button is clicked. 
+        if (userStatus.water >= 1){ //eatif
+            // give the option to "drink water". 
+          // create button
+              var drinkBtn = document.createElement('button');
+              //assign an id
+              drinkBtn.id = "drink-water"
+              //set the text
+              drinkBtn.innerHTML = "drink water"
+              //put it in the middle section
+              document.getElementById("middle").appendChild(drinkBtn)
+               
+          //Every ten seconds,
+              drinkBtn.addEventListener('click', function() { //drinktimer
+                this.setAttribute("disabled", "true");
+                  setTimeout(function() {
+                      drinkBtn.removeAttribute("disabled")
+                  }, 2000)     
+              }); //drinktimer
+
+              //One click of this button 
+          
+              drinkBtn.addEventListener('click', function addEnergy(){ //drinkevent
+                //and increases energy by 2.
+                userStatus.energy += 4
+               
+                //decreases the "water" count by 1,
+                userStatus.water -= 1;
+              
+                
+                var drinkText = document.createElement('div');
+                // puts the text inside of that div
+                drinkText.innerHTML = "you drank water and gained energy";
+                // puts the new div onto the dom in the left side
+                document.getElementById("left").appendChild(drinkText);
+                document.getElementById("middle").removeChild(drinkBtn)
+                updateDOM();
+              }) //drinkevent
+            } //drinkif
+
+
       updateDOM();
       }) //waterListen
     }; //waterIf
   
-    
+   
 
   })//walkevent 
+ 
 
     
 //left side
